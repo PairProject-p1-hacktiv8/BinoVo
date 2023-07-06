@@ -22,8 +22,14 @@ router.use(function(req, res, next){
 
 
 router.get('/company/:comId', Controller.projectCompany)
+router.get('/company/:comId/project', Controller.projectCompany)
+router.get('/company/:comId/project/add', Controller.addProjectForm)
+router.post('/company/:comId/project/add', Controller.addProject)
+router.get('/company/:comId/project/edit/:proId', Controller.editProjectForm)
+router.get('/company/:comId/project/edit/:proId', Controller.editProject)
 router.get('/investor/projectList', Controller.projectList)
-router.get('/investor/:invId', Controller.portofolio)
+router.get('/investor/projectList/:proId', Controller.projectList)
+router.get('/investor/:invId/projectList', Controller.portofolio)
 
 
 module.exports = router
