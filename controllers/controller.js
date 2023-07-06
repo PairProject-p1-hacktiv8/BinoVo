@@ -21,6 +21,7 @@ module.exports = class Controller {
         })
             .then(result => {
                 if (result === null) {
+                    // return res.redirect(`/`)
                     return res.send('akun dengan username tersebut tidak di temukan')
                 } else {
                     let dbPass = result.password
@@ -38,9 +39,9 @@ module.exports = class Controller {
 
 
     static registerPage(req, res) {
-        res.render('register')
+        let { error } = req.query
+        res.render('register', { error})
     }
-
 
     static registerPost(req, res) {
         let { username, password, email, role } = req.body
@@ -49,6 +50,10 @@ module.exports = class Controller {
                 res.send(result)
             })
             .catch(err => {
+                if(err.name === 'SequelizeValidationError'){
+                    let errMsg = err.errors.map(el => el.message)
+                    return res.redirect(`/register?error=${errMsg}`)
+                }
                 console.log(err)
                 res.send(err)
             })

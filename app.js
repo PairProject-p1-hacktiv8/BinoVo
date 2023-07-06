@@ -1,7 +1,7 @@
 const router = require('./routers/router.js')
+const session = require('express-session')
 const express = require('express')
 const dotEnv = require('dotenv')
-const session = require('express-session')
 const app = express()
 const port = 3000
 dotEnv.config()
