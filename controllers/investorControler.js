@@ -66,7 +66,8 @@ module.exports = class InvestorControler {
 
     //setelah klik project masuk keform ini
     static projectDetail(req, res) {
-        let { investorId } = req.session
+        let  investorId  = req.session.InvestorId
+        // console.log(req.session, 'id invess');
         const { proId } = req.params
         Project.findOne({ where: { id: proId } })
             .then(project => {
@@ -93,12 +94,12 @@ module.exports = class InvestorControler {
 
     static buySahamForm(req, res) {
         const {proId ,invId} = req.params
+        let data = {}
         Project.findOne({
            where:{
             id:proId
            }
         })
-        let data = {}
         .then(project => {
             data.project = project
             return Investor.findOne({where:{id:invId}})

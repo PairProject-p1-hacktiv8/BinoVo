@@ -67,7 +67,7 @@ module.exports = class Controller {
                 })
                 .then(resInvestor => {
                     if(resInvestor) {
-                        console.log(resInvestor.id, ' ini investor login');
+                        // console.log(resInvestor.id, ' ini investor login');
                         req.session.InvestorId = resInvestor.id
                         res.redirect(`/investor/${resInvestor.id}/projectList`)
                     }
