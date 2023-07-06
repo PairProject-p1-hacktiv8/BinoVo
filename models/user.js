@@ -21,8 +21,12 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+        msg : 'Kolom username tidak boleh kosong' ,
+        },
+        notEmpty:{
+        msg : 'Kolom username tidak boleh kosong'
+        }
       }
     },
     password: {
