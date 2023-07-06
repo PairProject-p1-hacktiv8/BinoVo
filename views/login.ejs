@@ -6,7 +6,17 @@
     <title>Document</title>
 </head>
 <body>
+    <%- include('partial/navbar') %>
+    
     <h1>Login</h1>
+    <h1>Register Page</h1>
+    <% if( error ) { %>
+        <div class="error">
+            <% error.split(',').forEach(elem => { %>
+                <p><%= elem %></p>
+         <%   }); %>
+        </div>
+   <% } %>
 
     <form action="/login" method="post">
         <div>

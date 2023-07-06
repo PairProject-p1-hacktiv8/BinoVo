@@ -8,7 +8,8 @@ module.exports = class Controller {
 
 
     static loginPage(req, res) {
-        res.render('login')
+        let { error } = req.body
+        res.render('login', {error})
     }
 
 
@@ -22,7 +23,9 @@ module.exports = class Controller {
             .then(result => {
                 if (result === null) {
                     // return res.redirect(`/`)
-                    return res.send('akun dengan username tersebut tidak di temukan')
+                    let errMsg = 'akun dengan username tersebut tidak di temukan'
+                    return res.redirect('/login?error=' + errMsg)
+                    // return res.send('')
                 } else {
                     let dbPass = result.password
                     if (compareHassed(password, dbPass)) {
@@ -32,6 +35,15 @@ module.exports = class Controller {
                         const errMsg = 'Password tidak cocok'
                         return res.redirect('/login?error=' + errMsg)
                     }
+                }
+            })
+            .catch(err => {
+                if(err.name === 'SequelizeValidationError'){
+                    let errMsg = err.errors.map(el => el.message)
+                    return res.redirect(`/login?error=${errMsg}`)
+                } else {
+                    console.log(err);
+                    return res.render(err)
                 }
             })
 
@@ -53,9 +65,10 @@ module.exports = class Controller {
                 if(err.name === 'SequelizeValidationError'){
                     let errMsg = err.errors.map(el => el.message)
                     return res.redirect(`/register?error=${errMsg}`)
+                } else {
+                    console.log(err)
+                    res.send(err)
                 }
-                console.log(err)
-                res.send(err)
             })
 
     }
