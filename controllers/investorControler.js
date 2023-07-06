@@ -112,4 +112,13 @@ module.exports = class InvestorControler {
             res.send(err)
         })
     }
+    static buySaham(req, res) {
+        const {proId ,invId} = req.params
+        const {load} = req.body
+        ProjectInvestor.create({InvestorId:invId , ProjectId:proId , load })
+        .then(()=> res.redirect(`/investor/${invId}/projectList`))
+        .catch(err => {
+            res.send(err)
+        })
+    }
 }
