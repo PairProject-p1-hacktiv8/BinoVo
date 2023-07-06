@@ -1,5 +1,6 @@
 const { Company, Investor, addNewInvestor, ProjectInvestor, User, Project } = require('../models')
 const { Op } = require("sequelize");
+const investor = require('../models/investor');
 
 module.exports = class InvestorControler {
     static renderFormInvestor(req, res){
@@ -81,14 +82,20 @@ module.exports = class InvestorControler {
 
     static investorProfile(req, res) {
         
-        Investor.findAll({
+        Investor.findOne({
             include:{
                 model: ProjectInvestor,
                 include: Project
             }
         })
-        .then(result => {
-            res.send(result)
+        .then(investor => {
+            // console.log(investor);
+            // console.log(investor.ProjectInvestors[0].Project);
+            res.render('profileInvestor' , {investor})
+        })
+        .catch(err => {
+            console.log(err);
+            res.send(err)
         })
     }
 
@@ -164,4 +171,29 @@ module.exports = class InvestorControler {
             res.redirect(`/investor/${invId}/projectList/${proId}/buySaham?error=${errorMsg}`)
         })
     }
+    
+    static deletePortofolio(req, res){
+        const {pId ,invId} = req.params
+        ProjectInvestor.findOne({
+            where:{ id:pId},
+            include:Investor
+        })
+        .then(portofolio => {
+            console.log(portofolio);
+            let newBalance = portofolio.Investor.balance + portofolio.load
+            console.log(newBalance);
+            Investor.update({balance: newBalance}, {
+                where: {
+                    id: invId
+                }
+            })
+            return ProjectInvestor.destroy({where:{id:pId}})
+        })
+        .then(()=> res.redirect(`/investor/${invId}/profile`))
+        .catch(err => {
+            res.send(err)
+            console.log(err);
+        })
+    }
+
 }

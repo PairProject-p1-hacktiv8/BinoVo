@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Profile Investor</h1>
+    <h3>Full Name : <%= investor.nameInvestor %></h3>
+    <h3>Saldo : <%= investor.balance %></h3>
+    <h3>Rank : <%= investor.getRank() %></h3>
+    <h2>Portofolio</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name Project</th>
+                <th>Minimum Load</th>
+                <th>detail</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% investor.ProjectInvestors?.forEach(el =>{ %>
+                <tr>
+                    <td><img src="<%= el.Project.imageURL %>" alt=""></td>
+                    <td><p><%=el.Project.nameProject%></p></td>
+                    <td><p><%=el.Project.minimumLoad%></p></td>
+                    <td><p><%=el.Project.detail%></p></td>
+                    <td><a href="/investor/<%= investor.id %>/portofolio/<%= el.id %>/delete">Jual</a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
