@@ -16,9 +16,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Company.init({
-    nameCompany: DataTypes.STRING,
-    address: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    nameCompany: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    address: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    UserId: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    }
   }, {
     sequelize,
     modelName: 'Company',

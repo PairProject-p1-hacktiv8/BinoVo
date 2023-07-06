@@ -14,15 +14,55 @@ module.exports = (sequelize, DataTypes) => {
       Investor.hasMany(models.ProjectInvestor)
       // define association here
     }
+
   }
   Investor.init({
-    nameInvestor: DataTypes.STRING,
-    balance: DataTypes.INTEGER,
-    rank: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    nameInvestor: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    balance: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    rank: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    UserId: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    }
   }, {
     sequelize,
     modelName: 'Investor',
   });
+  Investor.beforeCreate(investor => {
+    investor.balance = 0
+    investor.rank = 'bronze'
+  })
+  Investor.beforeUpdate(investor => {
+    if(investor.balance >= 1_000_000_000) {
+      investor.rank = 'Platinum'
+    }else if(investor.balance >= 100_000_000){
+      investor.rank = 'Gold'
+    }
+  })
   return Investor;
 };
