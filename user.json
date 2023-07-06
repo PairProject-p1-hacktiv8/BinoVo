@@ -1,0 +1,33 @@
+[
+    {
+      "username": "johnsmith",
+      "password": "password123",
+      "email": "johnsmith@example.com",
+      "role": "company"
+    },
+    {
+      "username": "janedoe",
+      "password": "p@ssw0rd",
+      "email": "janedoe@example.com",
+      "role": "company"
+    },
+    {
+      "username": "investor1",
+      "password": "securepass",
+      "email": "investor1@example.com",
+      "role": "investor"
+    },
+    {
+      "username": "investor2",
+      "password": "strongpwd",
+      "email": "investor2@example.com",
+      "role": "investor"
+    },
+    {
+      "username": "samjones",
+      "password": "mypassword",
+      "email": "samjones@example.com",
+      "role": "company"
+    }
+  ]
+  
