@@ -110,15 +110,47 @@ module.exports = class InvestorControler {
         })
         .catch(err => {
             res.send(err)
+            console.log(err);
+
         })
     }
     static buySaham(req, res) {
         const {proId ,invId} = req.params
         const {load} = req.body
-        ProjectInvestor.create({InvestorId:invId , ProjectId:proId , load })
-        .then(()=> res.redirect(`/investor/${invId}/projectList`))
+        let data = {}
+        Investor.findOne({
+           where:{
+            id:invId
+           }
+        })
+        .then(investor => {
+            console.log(investor, 'investor');
+            if(investor.balance > load){
+                console.log(investor.balance, 'balance');
+                return Project.findOne({where:{id:proId}})
+            } else {
+                let msg = 'Saldo anda tidak mencukupi'
+                res.redirect(`/investor/${invId}/projectList/${proId}/buySaham?error=${msg}`)
+                return;
+            }
+        })
+        .then(project => {
+            if(load > project.minimumLoad){
+                console.log(project.minimumLoad, 'minimum load');
+                return ProjectInvestor.create({InvestorId:invId , ProjectId:proId , load })
+            } else {
+                let msg = 'Minimum load adalah:'+ ' ' + project.minimumLoad
+                res.redirect(`/investor/${invId}/projectList/${proId}/buySaham?error=${msg}`)
+                return;
+            }
+        })
+        .then(()=> {
+            res.redirect(`/investor/${invId}/projectList`)
+            return;
+        })
         .catch(err => {
             res.send(err)
+            console.log(err);
         })
     }
 }
