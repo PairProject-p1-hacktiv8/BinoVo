@@ -8,7 +8,7 @@
 <body>
     <h1>Edit Project</h1>
     <br>
-    <form action="/company/add" method="post">
+    <form action="/company/<%= project.CompanyId %>/project/edit/<%= project.id %>" method="post">
         <div>
             <label>Name Project</label>
             <input type="text" name="nameProject" value="<%= project.nameProject %>">

@@ -16,7 +16,7 @@ app.use(session({
   secret: 'keyboard_cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: false }
 }))
 
 app.use(router)

@@ -1,5 +1,6 @@
 const { Company, Investor, Project, ProjectInvestor, User } = require('../models')
 const { compareHassed } = require('../helpers')
+const { use } = require('../routers/router')
 module.exports = class Controller {
 
     static homePage(req, res) {
@@ -32,7 +33,7 @@ module.exports = class Controller {
                         let dbPass = result.password
                         if (compareHassed(password, dbPass)) {
                             req.session.userId = result.id
-                            console.log(req.session, 'result dari session');
+                            // console.log(req.session, 'result dari session');
                             res.redirect(`/company/${result.id}`)
                         } else {
                             const errMsg = 'Password tidak cocok'
@@ -55,20 +56,27 @@ module.exports = class Controller {
 
 
     static registerPage(req, res) {
-        let { error } = req.query
-        res.render('register', { error })
+        let { error, usernameError } = req.query
+        res.render('register', { error, usernameError })
     }
 
     static registerPost(req, res) {
         let { username, password, email, role } = req.body
         User.create({ username, password, email, role })
             .then(result => {
-                res.send(result)
+                req.session.userId = result.id
+                if(role === 'investor'){
+                    res.redirect('/investor/add')
+                    // res.send(result)
+                } else {
+                    res.redirect('/company/add')
+                }
+                console.log(req.session.userId, 'user id');
             })
             .catch(err => {
                 if (err.name === 'SequelizeValidationError') {
                     let errMsg = err.errors.map(el => el.message)
-                    return res.redirect(`/register?error=${errMsg}`)
+                    res.redirect(`/register?error=${errMsg}`)
                 } else {
                     console.log(err)
                     res.send(err)
@@ -100,17 +108,31 @@ module.exports = class Controller {
 
     //Page setelah login AS company
     static projectCompany(req, res) {
-        const { comId } = req.params
-        Company.findOne({
+        // const { comId } = req.params
+        const { userId } = req.session
+        // Company.findOne({
+        //     where: {
+        //         id: comId
+        //     },
+        //     include: {
+        //         model: Project
+        //     }
+        // })
+        User.findOne({
             where: {
-                id: comId
+                id: userId
             },
             include: {
-                model: Project
+                model: Company,
+                include: {
+                    model: Project
+                }
             }
         })
-            .then(company => {
-                res.render('projectCompany', { company })
+            .then(usered => {
+                console.log(usered.Company, 'ini company details');
+                const { Company } = usered
+                res.render('projectCompany', { Company })
             })
             .catch(err => {
                 res.send(err)
@@ -120,7 +142,9 @@ module.exports = class Controller {
 
     //form add project Company
     static addProjectForm(req, res) {
-        res.render('addProject')
+        let { comId } = req.params
+        console.log(comId, 'ini com id dari add projet');
+        res.render('addProject', { comId })
     }
 
 
@@ -132,7 +156,7 @@ module.exports = class Controller {
             .then(() => {
                 res.redirect(`/company/${CompanyId}/project`)
             })
-            .then(() => {
+            .then((err) => {
                 res.send(err)
             })
     }
@@ -165,29 +189,7 @@ module.exports = class Controller {
     }
 
 
-    //page setelah login as investor
-    static projectList(req, res) {
-        Project.findAll()
-            .then(project => {
-                res.render('projectList', { project })
-            })
-            .catch(err => {
-                res.send(err)
-            })
-    }
-
-
-    //setelah klik project masuk keform ini
-    static projectDetail(req, res) {
-        const { proId } = req.params
-        Project.findOne({ where: { id: proId } })
-            .then(project => {
-                res.render('detailProject', { project })
-            })
-            .catch(err => {
-                res.send(err)
-            })
-    }
+   
     static tes(req, res) {
         res.send('hello word')
     }
