@@ -37,7 +37,6 @@ module.exports = class Controller {
 
     static registerPost(req, res) {
         let { username, password, email, role } = req.body
-        console.log(username, password, email, role, 'log dari controler');
         User.create({ username, password, email, role })
             .then(result => {
                 res.send(result)
