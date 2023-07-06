@@ -7,5 +7,24 @@
     color: red;
     padding: 5px;
 }
+/* nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav > div {
+    width: 2em;
+    background-color: green;
+}
 
+nav a {
+    display: inline-block;
+} */
 </style>
+<nav class="flex justify-between bg-[#0f172a] h-[3em] items-center text-white px-10 text-2xl">
+    <div><a href="/" class="inline-block hover:underline">Home</a></div>
+    <div>
+        <a href="/register" class="inline-block mr-5 hover:underline">Register</a>
+        <a href="/login" class="inline-block hover:underline">Login</a>
+    </div>
+</nav>
