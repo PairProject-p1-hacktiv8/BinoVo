@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name Project</th>
+                <th>Minimum Load</th>
+                <th>detail</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% company.forEach(el =>{ %>
+                <tr>
+                    <td><img src="<%= el.imageURL %>" alt=""></td>
+                    <td><p><%=el.nameProject%></p></td>
+                    <td><p><%=el.minimumLoad%></p></td>
+                    <td><p><%=el.detail%></p></td>
+                    <td><a href="/company/<%= el.CompanyId  %>/project/edit/<%= el.id  %>"></a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

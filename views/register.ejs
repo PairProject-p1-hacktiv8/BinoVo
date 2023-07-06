@@ -18,8 +18,23 @@
 
     <form action="/register" method="post">
         <div>
-            <label>Name</label>
-            <input type="text">
+            <label>Username</label>
+            <input type="text" name="username" >
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" name="email" >
+        </div>
+        <div>
+            <label>password</label>
+            <input type="text" name="password" >
+        </div>
+        <div>
+            <label>password</label>
+            <select name="role">
+                <option value="investor">Investro</option>
+                <option value="company">Company</option>
+            </select>
         </div>
         <button type="submit">Register</button>
     </form>
