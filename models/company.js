@@ -20,24 +20,36 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom nameCompany tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom nameCompany tidak boleh kosong'
+        }
       }
     },
     address: {
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom address tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom address tidak boleh kosong'
+        }
       }
     },
     UserId: {
       type:DataTypes.INTEGER,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom userId tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom userId tidak boleh kosong'
+        }
       }
     }
   }, {
