@@ -33,24 +33,36 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom password tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom password tidak boleh kosong'
+        }
       }
     },
     role: {
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom role tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom role tidak boleh kosong'
+        }
       }
     },
     email: {
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom email tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom email tidak boleh kosong'
+        }
       }
     }
   }, {

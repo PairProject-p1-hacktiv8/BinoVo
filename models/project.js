@@ -20,32 +20,48 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom nameProject tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom nameProject tidak boleh kosong'
+        }
       }
     },
     minimumLoad: {
       type:DataTypes.INTEGER,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom minimum load tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom minimum load tidak boleh kosong'
+        }
       }
     },
     detail: {
       type:DataTypes.TEXT,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom detail tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom detail tidak boleh kosong'
+        }
       }
     },
     CompanyId: {
       type:DataTypes.INTEGER,
       allowNull:false,
       validate:{
-        notNull:true,
-        notEmpty:true
+        notNull:{
+          msg : 'Kolom companyId tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom companyId tidak boleh kosong'
+        }
       }
     }
   }, {
