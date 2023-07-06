@@ -16,10 +16,38 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Investor.init({
-    nameInvestor: DataTypes.STRING,
-    balance: DataTypes.INTEGER,
-    rank: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    nameInvestor: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    balance: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    rank: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    UserId: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    }
   }, {
     sequelize,
     modelName: 'Investor',

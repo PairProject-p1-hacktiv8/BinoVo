@@ -16,10 +16,38 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Project.init({
-    nameProject: DataTypes.STRING,
-    minimumLoad: DataTypes.INTEGER,
-    detail: DataTypes.TEXT,
-    CompanyId: DataTypes.INTEGER
+    nameProject: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    minimumLoad: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    detail: {
+      type:DataTypes.TEXT,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    },
+    CompanyId: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:true,
+        notEmpty:true
+      }
+    }
   }, {
     sequelize,
     modelName: 'Project',
