@@ -30,7 +30,7 @@ router.get('/company/:comId/project/edit/:proId', Controller.editProjectForm)
 router.get('/company/:comId/project/edit/:proId', Controller.editProject)
 router.get('/investor/projectList', Controller.projectList)
 router.get('/investor/projectList/:proId', Controller.projectList)
-router.get('/investor/:invId/projectList', Controller.portofolio)
+// router.get('/investor/:invId/projectList', Controller.portofolio)
 
 
 module.exports = router
