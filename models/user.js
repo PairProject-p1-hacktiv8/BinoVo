@@ -54,13 +54,8 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
   });
   User.beforeCreate(user => {
-    hashingPassword(user.password)
-    .then(hassed => {
-      user.password = hassed
-    })
-    .catch(err => {
-      console.log(err, 'error hasing password');
-    })
+    user.password = hashingPassword(user.password)
+    console.log(user.password);
   })
   return User;
 };

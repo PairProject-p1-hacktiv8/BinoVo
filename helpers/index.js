@@ -1,17 +1,12 @@
 const bcryp = require('bcryptjs')
 
 function hashingPassword(password){
-    return new Promise((resolve, reject) => {
-        const salt = bcryp.genSalt(10)
-        bcryp.hash(password, salt)
-        .then(hass => {
-            resolve(hass)
-        })
-        .catch(err => {
-            reject(err)
-        })
-    })
+        const salt = bcryp.genSaltSync(10)
+        return  bcryp.hashSync(password, salt)
 }
 
+function compareHassed(curenPass, dbPass){
+    return bcryp.compareSync(curenPass, dbPass)
+}
 
-module.exports = { hashingPassword }
+module.exports = { hashingPassword, compareHassed }
