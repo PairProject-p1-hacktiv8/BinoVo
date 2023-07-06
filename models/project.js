@@ -63,6 +63,17 @@ module.exports = (sequelize, DataTypes) => {
           msg : 'Kolom companyId tidak boleh kosong'
         }
       }
+    },imageURL: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg : 'Kolom minimum load tidak boleh kosong' ,
+        },
+        notEmpty:{
+          msg : 'Kolom minimum load tidak boleh kosong'
+        }
+      }
     }
   }, {
     sequelize,

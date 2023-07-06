@@ -36,6 +36,7 @@ router.get('/investor/:id/projectList/:proId', InvestorControler.projectDetail)
 router.get('/investor/:invId/profile', InvestorControler.investorProfile)
 router.get('/investor/:invId/projectList/:proId/buySaham', InvestorControler.buySahamForm)
 router.post('/investor/:invId/projectList/:proId/buySaham', InvestorControler.buySaham)
+router.get('/investor/:invId/portofolio/:pId/delete', InvestorControler.deletePortofolio)
 // router.get('/investor/:invId/projectList', InvestorControler.portofolio)
 
 

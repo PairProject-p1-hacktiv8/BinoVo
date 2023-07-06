@@ -14,7 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       Investor.hasMany(models.ProjectInvestor)
       // define association here
     }
-
+    getRank(){
+      if (this.balance >= 1_000_000_000) {
+        this.rank = 'Platinum'
+        return this.rank
+      }else if(this.balance >= 100_000_000){
+        this.rank = 'Gold'
+        return this.rank
+      }else{
+        return this.rank
+      }
+    }
   }
   Investor.init({
     nameInvestor: {
