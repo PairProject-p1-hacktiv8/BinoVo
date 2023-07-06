@@ -90,4 +90,25 @@ module.exports = class InvestorControler {
             res.send(result)
         })
     }
+
+    static buySahamForm(req, res) {
+        const {proId ,invId} = req.params
+        Project.findOne({
+           where:{
+            id:proId
+           }
+        })
+        let data = {}
+        .then(project => {
+            data.project = project
+            return Investor.findOne({where:{id:invId}})
+        })
+        .then(investor => {
+            data.investor = investor
+            res.render('buySaham',data)
+        })
+        .catch(err => {
+            res.send(err)
+        })
+    }
 }

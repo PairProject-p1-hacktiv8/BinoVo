@@ -7,6 +7,12 @@
 </head>
 <body>
     <h1>Buy Saham</h1>
-    <form action="/investor/<%= investorId %>/projectList/<%= project.id %>/buySaham" method="post"></form>
+    <form action="/investor/<%= investor.id %>/projectList/<%= project.id %>/buySaham" method="post">
+    <div>
+        <label>Jumlah load</label>
+        <input type="number" value="load">
+    </div>
+    <button type="submit">BUY</button>
+    </form>
 </body>
 </html>
