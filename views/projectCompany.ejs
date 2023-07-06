@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <% company.forEach(el =>{ %>
+            <% company?.forEach(el =>{ %>
                 <tr>
                     <td><img src="<%= el.imageURL %>" alt=""></td>
                     <td><p><%=el.nameProject%></p></td>

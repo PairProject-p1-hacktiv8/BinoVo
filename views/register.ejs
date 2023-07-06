@@ -16,10 +16,15 @@
         </div>
    <% } %>
 
+
     <form action="/register" method="post">
         <div>
             <label>Username</label>
             <input type="text" name="username" >
+        </div>
+        <div>
+            <label>password</label>
+            <input type="password" name="password" >
         </div>
         <div>
             <label>Email</label>
@@ -27,12 +32,8 @@
         </div>
         <div>
             <label>password</label>
-            <input type="text" name="password" >
-        </div>
-        <div>
-            <label>password</label>
             <select name="role">
-                <option value="investor">Investro</option>
+                <option value="investor">investor</option>
                 <option value="company">Company</option>
             </select>
         </div>

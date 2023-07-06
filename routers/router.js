@@ -14,6 +14,7 @@ router.post('/register', Controller.registerPost)
 // middleware untuk mengecek session 
 router.use(function(req, res, next){
     if(!req.session.userId){
+        console.log(req.session.userId, 'user id dari sesion');
         res.redirect('/login')
     } else {
         next()

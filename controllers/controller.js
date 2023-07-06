@@ -8,51 +8,55 @@ module.exports = class Controller {
 
 
     static loginPage(req, res) {
-        let { error } = req.body
-        res.render('login', {error})
+        let { error, errorPassword, errorUsername, invalid } = req.query
+        res.render('login', { error, errorPassword, errorUsername, invalid })
     }
 
 
     static loginPost(req, res) {
         const { username, password } = req.body
-        User.findOne({
-            where: {
-                username: username
-            }
-        })
-            .then(result => {
-                if (result === null) {
-                    // return res.redirect(`/`)
-                    let errMsg = 'akun dengan username tersebut tidak di temukan'
-                    return res.redirect('/login?error=' + errMsg)
-                    // return res.send('')
-                } else {
-                    let dbPass = result.password
-                    if (compareHassed(password, dbPass)) {
-                        req.session.userId = result.id
-                        return res.send(result)
+        if (username === undefined || password === undefined) {
+            let msg = 'please fill the input below'
+            res.redirect('/login?invalid=' + msg)
+        } else {
+            User.findOne({
+                where: {
+                    username: username
+                },
+            })
+                .then(result => {
+                    if (result === null) {
+                        let errMsg = 'akun dengan username tersebut tidak di temukan'
+                        return res.redirect('/login?errorUsername=' + errMsg)
                     } else {
-                        const errMsg = 'Password tidak cocok'
-                        return res.redirect('/login?error=' + errMsg)
+                        let dbPass = result.password
+                        if (compareHassed(password, dbPass)) {
+                            req.session.userId = result.id
+                            console.log(req.session, 'result dari session');
+                            res.redirect(`/company/${result.id}`)
+                        } else {
+                            const errMsg = 'Password tidak cocok'
+                            return res.redirect('/login?errorPassword=' + errMsg)
+                        }
                     }
-                }
-            })
-            .catch(err => {
-                if(err.name === 'SequelizeValidationError'){
-                    let errMsg = err.errors.map(el => el.message)
-                    return res.redirect(`/login?error=${errMsg}`)
-                } else {
-                    console.log(err);
-                    return res.render(err)
-                }
-            })
+                })
+                .catch(err => {
+                    if (err.name === 'SequelizeValidationError') {
+                        let errMsg = err.errors.map(el => el.message)
+                        return res.redirect(`/login?error=${errMsg}`)
+                    } else {
+                        console.log(err);
+                        return res.render(err)
+                    }
+                })
+        }
 
     }
 
 
     static registerPage(req, res) {
         let { error } = req.query
-        res.render('register', { error})
+        res.render('register', { error })
     }
 
     static registerPost(req, res) {
@@ -62,7 +66,7 @@ module.exports = class Controller {
                 res.send(result)
             })
             .catch(err => {
-                if(err.name === 'SequelizeValidationError'){
+                if (err.name === 'SequelizeValidationError') {
                     let errMsg = err.errors.map(el => el.message)
                     return res.redirect(`/register?error=${errMsg}`)
                 } else {

@@ -9,19 +9,17 @@ dotEnv.config()
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(router)
 app.set('trust proxy', 1)
+
 // setup session untuk men store id login
 app.use(session({
-  secret: 'BELOM_MANDI',
+  secret: 'keyboard_cat',
   resave: false,
   saveUninitialized: true,
-  cookie: {
-    secure: true,
-    sameSite: true
-  }
+  cookie: { secure: true }
 }))
 
+app.use(router)
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
