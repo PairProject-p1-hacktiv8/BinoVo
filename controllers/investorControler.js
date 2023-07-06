@@ -1,4 +1,4 @@
-const { Company, Investor, Project, ProjectInvestor, User } = require('../models')
+const { Company, Investor, addNewInvestor, ProjectInvestor, User, Project } = require('../models')
 const { compareHassed } = require('../helpers')
 
 module.exports = class InvestorControler {
@@ -60,5 +60,19 @@ module.exports = class InvestorControler {
             .catch(err => {
                 res.send(err)
             })
+    }
+
+
+    static investorProfile(req, res) {
+        
+        Investor.findAll({
+            include:{
+                model: ProjectInvestor,
+                include: Project
+            }
+        })
+        .then(result => {
+            res.send(result)
+        })
     }
 }

@@ -21,7 +21,8 @@ router.use(function(req, res, next){
     }
 })
 
-
+router.get('/company/add', Controller.addFormCompany)
+router.post('/company/add', Controller.postCompany)
 router.get('/company/:comId', Controller.projectCompany)
 router.get('/company/:comId/project', Controller.projectCompany)
 router.get('/company/:comId/project/add', Controller.addProjectForm)
@@ -32,7 +33,7 @@ router.get('/investor/add', InvestorControler.renderFormInvestor)
 router.post('/investor/add', InvestorControler.addNewInvestor)
 router.get('/investor/:id/projectList', InvestorControler.projectList)
 router.get('/investor/:id/projectList/:proId', InvestorControler.projectDetail)
-// router.get('/investor/:invId/projectList', InvestorControler.portofolio)
+router.get('/investor/:invId/profile', InvestorControler.investorProfile)
 
 
 module.exports = router
