@@ -34,6 +34,9 @@ router.post('/investor/add', InvestorControler.addNewInvestor)
 router.get('/investor/:id/projectList', InvestorControler.projectList)
 router.get('/investor/:id/projectList/:proId', InvestorControler.projectDetail)
 router.get('/investor/:invId/profile', InvestorControler.investorProfile)
+// router.get('/investor/:id/projectList/:proId/buySaham', InvestorControler.buySahamForm)
+// router.post('/investor/:id/projectList/:proId/buySaham', InvestorControler.buySaham)
+// router.get('/investor/:invId/projectList', InvestorControler.portofolio)
 
 
 module.exports = router
