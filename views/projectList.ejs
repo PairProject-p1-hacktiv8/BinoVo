@@ -7,6 +7,15 @@
 </head>
 <body>
     <h1>Project List</h1>
+    <form action="/investor/<%= UserId %>/projectList" method="get">
+        <input type="text" placeholder="Search...." name="search">
+        <select name="sort">
+            <option value="" selected disabled hidden>--Order By--</option>
+            <option value="ASC">Termurah</option>
+            <option value="DESC">Termahal</option>
+        </select>
+        <button>Find</button>
+    </form>
     <table>
         <thead>
             <tr>

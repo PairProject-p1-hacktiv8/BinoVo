@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type:DataTypes.STRING,
       allowNull:false,
-      unique: true,
+      unique: {
+        msg: 'Username already used'
+      },
       validate:{
         notNull:{
         msg : 'Kolom username tidak boleh kosong' ,

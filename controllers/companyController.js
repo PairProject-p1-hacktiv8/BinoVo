@@ -1,12 +1,16 @@
 const { Company, Investor, Project, ProjectInvestor, User } = require('../models')
 const { compareHassed } = require('../helpers')
-const { use } = require('../routers/router')
+
 module.exports = class Controller {
+
+    // HOME PAGE 
 
     static homePage(req, res) {
         res.render('home')
     }
 
+
+    //  ========================>>>> LOGIN, REGIS AND VALIDATION
 
     static loginPage(req, res) {
         let { error, errorPassword, errorUsername, invalid } = req.query
@@ -100,7 +104,7 @@ module.exports = class Controller {
                 console.log(req.session.userId, 'user id');
             })
             .catch(err => {
-                if (err.name === 'SequelizeValidationError') {
+                if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
                     let errMsg = err.errors.map(el => el.message)
                     res.redirect(`/register?error=${errMsg}`)
                 } else {
@@ -121,29 +125,22 @@ module.exports = class Controller {
             })
     }
 
+    //    >>>>>>>>>>>>>>>>>>>>>  DETAIL ABOUT COMPANY
 
     static addFormCompany(req, res) {
         res.render('addCompany')
     }
 
 
-    static projectList(req, res) {
-        res.render('login')
-    }
+    // static projectList(req, res) {
+    //     res.render('login')
+    // }
 
 
     //Page setelah login AS company
     static projectCompany(req, res) {
-        // const { comId } = req.params
         const { userId } = req.session
-        // Company.findOne({
-        //     where: {
-        //         id: comId
-        //     },
-        //     include: {
-        //         model: Project
-        //     }
-        // })
+
         User.findOne({
             where: {
                 id: userId
@@ -156,7 +153,6 @@ module.exports = class Controller {
             }
         })
             .then(usered => {
-                console.log(usered.Company, 'ini company details');
                 const { Company } = usered
                 res.render('projectCompany', { Company })
             })

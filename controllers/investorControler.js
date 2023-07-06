@@ -1,12 +1,11 @@
 const { Company, Investor, addNewInvestor, ProjectInvestor, User, Project } = require('../models')
-const { compareHassed } = require('../helpers')
+const { Op } = require("sequelize");
 
 module.exports = class InvestorControler {
     static renderFormInvestor(req, res){
         let { error } = req.query
         res.render('addInvestor', { error })
     }
-
 
     static addNewInvestor(req, res) {
         let UserId = req.session.userId
@@ -17,7 +16,6 @@ module.exports = class InvestorControler {
         
         .then(result => {
 
-            // console.log(result, ' name investor 16');
 
             let investorId = result.id
             req.session.InvestorId = investorId
@@ -38,10 +36,27 @@ module.exports = class InvestorControler {
 
      //page setelah login as investor
      static projectList(req, res) {
-        Project.findAll()
+        let { search, sort } = req.query
+        let option = {
+            where: {}
+        }
+
+        if(search){
+            option.where.nameProject = {
+                [Op.iLike]: `%${search}%`,
+            }
+        }
+
+        if(sort){
+            option.order = [
+                ['minimumLoad', sort ]
+            ]
+        }
+        let UserId = req.session.userId 
+        Project.findAll(option)
             .then(project => {
 
-                res.render('projectList', { project })
+                res.render('projectList', { project, UserId })
             })
             .catch(err => {
                 res.send(err)
