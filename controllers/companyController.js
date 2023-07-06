@@ -193,4 +193,6 @@ module.exports = class Controller {
     static tes(req, res) {
         res.send('hello word')
     }
+
+    //setelah klik pendanaan
 }

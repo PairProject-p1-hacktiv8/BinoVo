@@ -15,15 +15,13 @@ router.post('/register', Controller.registerPost)
 // middleware untuk mengecek session 
 router.use(function(req, res, next){
     if(!req.session.userId){
-        console.log(req.session.userId, 'user id dari sesion');
         res.redirect('/login')
     } else {
         next()
     }
 })
 
-router.get('/company/add', Controller.addFormCompany)
-router.post('/company/add', Controller.postCompany)
+
 router.get('/company/:comId', Controller.projectCompany)
 router.get('/company/:comId/project', Controller.projectCompany)
 router.get('/company/:comId/project/add', Controller.addProjectForm)
