@@ -4,14 +4,16 @@ const investor = require('../models/investor');
 
 module.exports = class InvestorControler {
     static renderFormInvestor(req, res){
+        let invId = req.session.InvestorId
+        let nameInv = req.session.nameInvestor
         let { error } = req.query
-        res.render('addInvestor', { error })
+        res.render('addInvestor', { error, invId, nameInv })
     }
 
     static addNewInvestor(req, res) {
         let UserId = req.session.userId
         let { nameInvestor } = req.body
-        console.log(nameInvestor, 'nama nya');
+        // console.log(nameInvestor, 'nama nya');
 
         Investor.create({nameInvestor, UserId})
         
@@ -20,12 +22,14 @@ module.exports = class InvestorControler {
 
             let investorId = result.id
             req.session.InvestorId = investorId
+            req.session.InvestorName = result.nameInvestor
             res.redirect(`/investor/${investorId}/projectList`)
         })
         .catch(err => {
             if (err.name === 'SequelizeValidationError') {
                 let errMsg = err.errors.map(el => el.message)
                 res.redirect(`/investor/add?error=${errMsg}`)
+                req.session.save()
             } else {
                 console.log(err)
                 res.send(err)
@@ -37,6 +41,8 @@ module.exports = class InvestorControler {
 
      //page setelah login as investor
      static projectList(req, res) {
+        let invId = req.session.InvestorId
+        let nameInv = req.session.nameInvestor
         let { search, sort } = req.query
         let option = {
             where: {}
@@ -57,7 +63,7 @@ module.exports = class InvestorControler {
         Project.findAll(option)
             .then(project => {
 
-                res.render('projectList', { project, UserId })
+                res.render('projectList', { project, UserId, invId, nameInv })
             })
             .catch(err => {
                 res.send(err)
@@ -68,11 +74,12 @@ module.exports = class InvestorControler {
     //setelah klik project masuk keform ini
     static projectDetail(req, res) {
         let  investorId  = req.session.InvestorId
+        let nameInv = req.session.nameInvestor
         // console.log(req.session, 'id invess');
         const { proId } = req.params
         Project.findOne({ where: { id: proId } })
             .then(project => {
-                res.render('detailProject', { project , investorId })
+                res.render('detailProject', { project , investorId, nameInv })
             })
             .catch(err => {
                 res.send(err)
@@ -104,7 +111,8 @@ module.exports = class InvestorControler {
     static buySahamForm(req, res) {
         const {proId ,invId} = req.params
         let { error } = req.query
-        let data = {error}
+        let nameInv = req.session.nameInvestor
+        let data = {error, invId, nameInv }
         Project.findOne({
            where:{
             id:proId
@@ -163,12 +171,14 @@ module.exports = class InvestorControler {
                 }
             })
             res.redirect(`/investor/${invId}/projectList`)
+            req.session.save()
             return;
         })
         .catch(err => {
             console.log(err);
             let errorMsg = err.message
             res.redirect(`/investor/${invId}/projectList/${proId}/buySaham?error=${errorMsg}`)
+            req.session.save()
         })
     }
     

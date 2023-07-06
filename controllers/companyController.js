@@ -69,6 +69,7 @@ module.exports = class Controller {
                     if(resInvestor) {
                         // console.log(resInvestor.id, ' ini investor login');
                         req.session.InvestorId = resInvestor.id
+                        req.session.InvestorName = resInvestor.nameInvestor
                         res.redirect(`/investor/${resInvestor.id}/projectList`)
                     }
                 })
@@ -88,6 +89,7 @@ module.exports = class Controller {
 
     static registerPage(req, res) {
         let { error, usernameError } = req.query
+        
         res.render('register', { error, usernameError })
     }
 
@@ -98,15 +100,18 @@ module.exports = class Controller {
                 req.session.userId = result.id
                 if(role === 'investor'){
                     res.redirect('/investor/add')
+                    req.session.invId = result.id
+                    req.session.save()
                 } else {
                     res.redirect('/company/add')
                 }
-                console.log(req.session.userId, 'user id');
+                // console.log(req.session.userId, 'user id');
             })
             .catch(err => {
                 if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
                     let errMsg = err.errors.map(el => el.message)
                     res.redirect(`/register?error=${errMsg}`)
+                    req.session.save()
                 } else {
                     console.log(err)
                     res.send(err)
@@ -116,18 +121,27 @@ module.exports = class Controller {
     }
 
 
+    static logOut(req, res) {
+        req.session.destroy(function(err) {
+            if(err) console.log('gagal <<<<<<<<<<<<<')
+        })
+        res.redirect('/')
+    }
+
     static postCompany(req, res) {
         let UserId = req.session.userId
         let { nameCompany, address } = req.body
         Company.create({ nameCompany, address, UserId })
             .then(result => {
                 res.redirect(`/company/${result.id}`)
+                req.session.save()
             })
     }
 
     //    >>>>>>>>>>>>>>>>>>>>>  DETAIL ABOUT COMPANY
 
     static addFormCompany(req, res) {
+        
         res.render('addCompany')
     }
 
@@ -177,6 +191,7 @@ module.exports = class Controller {
         Project.create({ nameProject, minimumLoad, detail, CompanyId, imageURL })
             .then(() => {
                 res.redirect(`/company/${CompanyId}/project`)
+                req.session.save()
             })
             .then((err) => {
                 res.send(err)
@@ -204,6 +219,7 @@ module.exports = class Controller {
         Project.update({ nameProject, minimumLoad, detail, imageURL }, { where: { id: proId } })
             .then(() => {
                 res.redirect(`/company/${comId}/project`)
+                req.session.save()
             })
             .catch(err => {
                 res.send(err)

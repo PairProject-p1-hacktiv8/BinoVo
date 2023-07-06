@@ -21,6 +21,7 @@ router.use(function(req, res, next){
     }
 })
 
+router.get('/logout', Controller.logOut)
 router.get('/company/add', Controller.addFormCompany)
 router.post('/company/add', Controller.postCompany)
 router.get('/company/:comId', Controller.projectCompany)
