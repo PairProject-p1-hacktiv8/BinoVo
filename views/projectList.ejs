@@ -31,12 +31,12 @@
             </thead>
             <tbody>
                 <% project?.forEach(el =>{ %>
-                    <tr class="border border-black">
+                    <tr class="border border-black text-lg">
                         <td class="border border-black"><img src="<%= el.imageURL %>" alt="" width="200"></td>
-                        <td><p><%=el.nameProject%></p></td>
-                        <td><p><%=el.minimumLoad%></p></td>
-                        <td><p><%=el.detail%></p></td>
-                        <td><a href="/investor/<%= el.CompanyId  %>/projectList/<%= el.id  %>">Details</a></td>
+                        <td class="pl-5"><p><%=el.nameProject%></p></td>
+                        <td class="pl-5"><p><%= formatCurent(el.minimumLoad)%></p></td>
+                        <td class="pl-5"><p><%=el.detail%></p></td>
+                        <td class="pl-5"><a href="/investor/<%= el.CompanyId  %>/projectList/<%= el.id  %>" class="bg-[#64748b] p-2 rounded text-white inline-block my-2 hover:underline hover:text-blue-200">Details</a></td>
                     </tr>
                 <% }) %>
             </tbody>

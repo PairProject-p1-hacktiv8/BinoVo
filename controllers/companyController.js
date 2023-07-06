@@ -1,5 +1,5 @@
 const { Company, Investor, Project, ProjectInvestor, User } = require('../models')
-const { compareHassed } = require('../helpers')
+const { compareHassed, formatCurent } = require('../helpers')
 
 module.exports = class Controller {
 

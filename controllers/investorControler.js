@@ -1,6 +1,6 @@
 const { Company, Investor, addNewInvestor, ProjectInvestor, User, Project } = require('../models')
 const { Op } = require("sequelize");
-const investor = require('../models/investor');
+const { compareHassed, formatCurent } = require('../helpers')
 
 module.exports = class InvestorControler {
     static renderFormInvestor(req, res){
@@ -63,7 +63,7 @@ module.exports = class InvestorControler {
         Project.findAll(option)
             .then(project => {
 
-                res.render('projectList', { project, UserId, invId, nameInv })
+                res.render('projectList', { project, UserId, invId, nameInv, formatCurent })
             })
             .catch(err => {
                 res.send(err)
@@ -79,7 +79,7 @@ module.exports = class InvestorControler {
         const { proId } = req.params
         Project.findOne({ where: { id: proId } })
             .then(project => {
-                res.render('detailProject', { project , investorId, nameInv })
+                res.render('detailProject', { project , investorId, nameInv, formatCurent })
             })
             .catch(err => {
                 res.send(err)
@@ -98,7 +98,7 @@ module.exports = class InvestorControler {
         .then(investor => {
             // console.log(investor);
             // console.log(investor.ProjectInvestors[0].Project);
-            res.render('profileInvestor' , {investor})
+            res.render('profileInvestor' , {investor, formatCurent})
         })
         .catch(err => {
             console.log(err);
@@ -112,7 +112,7 @@ module.exports = class InvestorControler {
         const {proId ,invId} = req.params
         let { error } = req.query
         let nameInv = req.session.nameInvestor
-        let data = {error, invId, nameInv }
+        let data = {error, invId, nameInv, formatCurent }
         Project.findOne({
            where:{
             id:proId

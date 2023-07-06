@@ -1,4 +1,5 @@
 'use strict';
+const { formatCurent } = require('../helpers/index')
 const {
   Model
 } = require('sequelize');
@@ -13,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       Investor.belongsTo(models.User)
       Investor.hasMany(models.ProjectInvestor)
       // define association here
+    }
+
+    get formatCurency(){
+      return formatCurent(this.balance)
     }
     getRank(){
       if (this.balance >= 1_000_000_000) {

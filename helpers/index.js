@@ -9,4 +9,8 @@ function compareHassed(curenPass, dbPass){
     return bcryp.compareSync(curenPass, dbPass)
 }
 
-module.exports = { hashingPassword, compareHassed }
+
+function formatCurent(money){
+    return money.toLocaleString('id-ID', {style: 'currency', currency: 'IDR'})
+}
+module.exports = { hashingPassword, compareHassed, formatCurent }
