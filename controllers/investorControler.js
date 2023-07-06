@@ -92,9 +92,12 @@ module.exports = class InvestorControler {
         })
     }
 
+
+
     static buySahamForm(req, res) {
         const {proId ,invId} = req.params
-        let data = {}
+        let { error } = req.query
+        let data = {error}
         Project.findOne({
            where:{
             id:proId
@@ -114,6 +117,10 @@ module.exports = class InvestorControler {
 
         })
     }
+
+
+
+
     static buySaham(req, res) {
         const {proId ,invId} = req.params
         const {load} = req.body
@@ -124,33 +131,37 @@ module.exports = class InvestorControler {
            }
         })
         .then(investor => {
-            console.log(investor, 'investor');
             if(investor.balance > load){
-                console.log(investor.balance, 'balance');
+                data.balance = investor.balance
                 return Project.findOne({where:{id:proId}})
             } else {
                 let msg = 'Saldo anda tidak mencukupi'
-                res.redirect(`/investor/${invId}/projectList/${proId}/buySaham?error=${msg}`)
-                return;
+                throw new Error(msg)
             }
         })
         .then(project => {
             if(load > project.minimumLoad){
-                console.log(project.minimumLoad, 'minimum load');
                 return ProjectInvestor.create({InvestorId:invId , ProjectId:proId , load })
             } else {
                 let msg = 'Minimum load adalah:'+ ' ' + project.minimumLoad
-                res.redirect(`/investor/${invId}/projectList/${proId}/buySaham?error=${msg}`)
-                return;
+                throw new Error(msg)
+
             }
         })
         .then(()=> {
+            let newBalance = data.balance - load
+            Investor.update({balance: newBalance}, {
+                where: {
+                    id: invId
+                }
+            })
             res.redirect(`/investor/${invId}/projectList`)
             return;
         })
         .catch(err => {
-            res.send(err)
             console.log(err);
+            let errorMsg = err.message
+            res.redirect(`/investor/${invId}/projectList/${proId}/buySaham?error=${errorMsg}`)
         })
     }
 }
