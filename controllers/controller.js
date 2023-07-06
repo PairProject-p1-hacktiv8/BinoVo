@@ -25,7 +25,6 @@ module.exports = class Controller {
                     } else {
                         const errMsg = 'Password tidak cocok'
                         res.redirect('/login?error='+ errMsg)
-                        // res.send('password berbeda')
                     }
                 }
             })
@@ -47,6 +46,20 @@ module.exports = class Controller {
             })
 
     }
+
+
+    static postCompany(req, res){
+        let UserId = req.session.userId
+        let { nameCompany, address } = req.body
+        Company.create({nameCompany, address, UserId})
+        .then(result => {
+            res.redirect(`/company/${result.id}`)
+        })
+    }
+    static addFormCompany(req, res){
+        res.render('addCompany')
+     }
+
     static projectList(req, res) {
         res.render('login')
     }
