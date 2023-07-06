@@ -24,21 +24,48 @@ module.exports = class Controller {
                 where: {
                     username: username
                 },
+                include: Company
             })
                 .then(result => {
                     if (result === null) {
+
                         let errMsg = 'akun dengan username tersebut tidak di temukan'
                         return res.redirect('/login?errorUsername=' + errMsg)
+
                     } else {
                         let dbPass = result.password
                         if (compareHassed(password, dbPass)) {
                             req.session.userId = result.id
-                            // console.log(req.session, 'result dari session');
-                            res.redirect(`/company/${result.id}`)
+
+                            // console.log(result, '<<<<<<<<<<<<<<<<<<<<<<<');
+                            
+                            if(result.role === 'investor'){
+                                return Investor.findOne({
+                                    where: {
+                                        UserId: result.id
+                                    }
+                                })
+
+                            } else {
+
+                                console.log(result.Company.id, ' <<<<<<<<<<<<< RESULT COMPANY')
+                                let id = result.Company.id
+                                res.redirect(`/company/${id}`)
+
+                            }
+
+                            
                         } else {
                             const errMsg = 'Password tidak cocok'
                             return res.redirect('/login?errorPassword=' + errMsg)
                         }
+                    }
+                })
+                .then(resInvestor => {
+                    if(resInvestor) {
+                        console.log(resInvestor.id, ' ini investor login');
+                        req.session.InvestorId = resInvestor.id
+                        res.redirect(`/investor/${resInvestor.id}/projectList`)
                     }
                 })
                 .catch(err => {
@@ -67,7 +94,6 @@ module.exports = class Controller {
                 req.session.userId = result.id
                 if(role === 'investor'){
                     res.redirect('/investor/add')
-                    // res.send(result)
                 } else {
                     res.redirect('/company/add')
                 }

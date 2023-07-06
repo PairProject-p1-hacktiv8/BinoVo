@@ -10,10 +10,17 @@ module.exports = class InvestorControler {
 
     static addNewInvestor(req, res) {
         let UserId = req.session.userId
-        let { fullname } = req.body
-        Investor.create({nameInvestor: fullname, UserId})
+        let { nameInvestor } = req.body
+        console.log(nameInvestor, 'nama nya');
+
+        Investor.create({nameInvestor, UserId})
+        
         .then(result => {
+
+            // console.log(result, ' name investor 16');
+
             let investorId = result.id
+            req.session.InvestorId = investorId
             res.redirect(`/investor/${investorId}/projectList`)
         })
         .catch(err => {
@@ -33,6 +40,7 @@ module.exports = class InvestorControler {
      static projectList(req, res) {
         Project.findAll()
             .then(project => {
+
                 res.render('projectList', { project })
             })
             .catch(err => {
@@ -43,10 +51,11 @@ module.exports = class InvestorControler {
 
     //setelah klik project masuk keform ini
     static projectDetail(req, res) {
+        let { investorId } = req.session
         const { proId } = req.params
         Project.findOne({ where: { id: proId } })
             .then(project => {
-                res.render('detailProject', { project })
+                res.render('detailProject', { project , investorId })
             })
             .catch(err => {
                 res.send(err)

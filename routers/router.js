@@ -29,9 +29,10 @@ router.post('/company/:comId/project/add', Controller.addProject)
 router.get('/company/:comId/project/edit/:proId', Controller.editProjectForm)
 router.post('/company/:comId/project/edit/:proId', Controller.editProject)
 router.get('/investor/add', InvestorControler.renderFormInvestor)
+router.post('/investor/add', InvestorControler.addNewInvestor)
 router.get('/investor/:id/projectList', InvestorControler.projectList)
-// router.get('/investor/:id/projectList/:proId', InvestorControler.projectList)
-// router.get('/investor/:invId/projectList', Controller.portofolio)
+router.get('/investor/:id/projectList/:proId', InvestorControler.projectDetail)
+// router.get('/investor/:invId/projectList', InvestorControler.portofolio)
 
 
 module.exports = router

@@ -31,27 +31,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     balance: {
       type:DataTypes.INTEGER,
-      allowNull:false,
-      validate:{
-        notNull:{
-          msg : 'Kolom balance tidak boleh kosong' ,
-        },
-        notEmpty:{
-          msg : 'Kolom balance tidak boleh kosong'
-        }
-      }
     },
     rank: {
       type:DataTypes.STRING,
-      allowNull:false,
-      validate:{
-        notNull:{
-          msg : 'Kolom rank tidak boleh kosong' ,
-        },
-        notEmpty:{
-          msg : 'Kolom rank tidak boleh kosong'
-        }
-      }
     },
     UserId: {
       type:DataTypes.INTEGER,
@@ -69,10 +51,13 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Investor',
   });
-  Investor.beforeCreate(investor => {
-    investor.balance = 0
-    investor.rank = 'bronze'
-  })
+ 
+  
+Investor.beforeCreate((inves) => {
+  inves.balance = 0;
+  inves.rank = 'Bronze'
+})
+
   Investor.beforeUpdate(investor => {
     if(investor.balance >= 1_000_000_000) {
       investor.rank = 'Platinum'
