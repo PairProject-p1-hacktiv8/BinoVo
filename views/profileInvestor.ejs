@@ -20,7 +20,7 @@
                 <tr class="border-b-2 border-black">
                     <th>Image</th>
                     <th>Name Project</th>
-                    <th>Minimum Load</th>
+                    <th>Load</th>
                     <th>detail</th>
                     <th>Action</th>
                 </tr>
@@ -30,7 +30,7 @@
                     <tr class="border-b-2 text-center hover:bg-[#f3f4f6]">
                         <td><img src="<%= el.Project.imageURL %>" alt=""></td>
                         <td><p><%=el.Project.nameProject%></p></td>
-                        <td><p><%= formatCurent(el.Project.minimumLoad)%></p></td>
+                        <td><p><%= el.rupiah%></p></td>
                         <td><p><%=el.Project.detail%></p></td>
                         <td><a href="/investor/<%= investor.id %>/portofolio/<%= el.id %>/delete" class="bg-[#64748b] p-2 rounded text-white inline-block px-5 my-2 hover:underline hover:text-blue-200">Jual</a></td>
                     </tr>

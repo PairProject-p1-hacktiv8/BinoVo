@@ -1,4 +1,5 @@
 'use strict';
+const { formatCurent } = require('../helpers/index')
 const {
   Model
 } = require('sequelize');
@@ -13,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       ProjectInvestor.belongsTo(models.Project)
       ProjectInvestor.belongsTo(models.Investor)
       // define association here
+    }
+    get rupiah(){
+      return formatCurent(this.load)
     }
   }
   ProjectInvestor.init({

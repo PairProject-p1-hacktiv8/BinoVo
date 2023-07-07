@@ -23,9 +23,9 @@
                 </select>
                 <button class="bg-[#f5f5f4] px-3 py-1 rounded text-black border ">Find</button>
             </form>
-            <table class="border border-black">
-                <thead class="border border-black">
-                    <tr class="my-2">
+            <table class=" shadow-lg">
+                <thead class="">
+                    <tr class=" border border-black my-2">
                         <th>Image</th>
                         <th>Name Project</th>
                         <th>Minimum Load</th>
@@ -35,8 +35,8 @@
                 </thead>
                 <tbody>
                     <% project?.forEach(el=>{ %>
-                        <tr class="border border-black text-lg">
-                            <td class="border border-black"><img src="<%= el.imageURL %>" alt="" width="200"></td>
+                        <tr class="border text-lg">
+                            <td class=""><img src="<%= el.imageURL %>" alt="" width="200"></td>
                             <td class="pl-5">
                                 <p>
                                     <%=el.nameProject%>
@@ -52,7 +52,7 @@
                                     <%=el.detail%>
                                 </p>
                             </td>
-                            <td class="pl-5"><a href="/investor/<%= el.CompanyId  %>/projectList/<%= el.id  %>"
+                            <td class="pl-5 pr-5"><a href="/investor/<%= el.CompanyId  %>/projectList/<%= el.id  %>"
                                     class="bg-[#64748b] p-2 rounded text-white inline-block my-2 hover:underline hover:text-blue-200">Details</a>
                             </td>
                         </tr>
