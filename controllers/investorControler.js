@@ -77,7 +77,7 @@ module.exports = class InvestorControler {
         let nameInv = req.session.nameInvestor
         // console.log(req.session, 'id invess');
         const { proId } = req.params
-        Project.findOne({ where: { id: proId } })
+        Project.findOne({ where: { id: proId },include:Company  })
             .then(project => {
                 res.render('detailProject', { project , investorId, nameInv, formatCurent })
             })
