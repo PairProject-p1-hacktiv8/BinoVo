@@ -5,28 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('partial/head-bootstrap') %>
     <title>Document</title>
+    <style>
+        .form__input {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            font-size: 1.2rem;
+            margin: 0 auto;
+            border-radius: 0.2rem;
+            background-color: rgb(255, 255, 255);
+            border: black;
+            width: 30%;
+            display: block;
+            border-bottom: 0.3rem solid transparent;
+            transition: all 0.3s;
+        }
+        </style>
 </head>
 <body>
-    <h1>Edit Project</h1>
-    <br>
-    <form action="/company/<%= project.CompanyId %>/project/edit/<%= project.id %>" method="post">
-        <div>
-            <label>Name Project</label>
-            <input type="text" name="nameProject" value="<%= project.nameProject %>">
-        </div>
-        <div>
-            <label>Minimum Load</label>
-            <input type="text" name="minimumLoad" value="<%= project.minimumLoad %>">
-        </div>
-        <div>
-            <label>Detail</label>
-            <input type="text" name="detail" value="<%= project.detail %>">
-        </div>
-        <div>
-            <label>Image URL</label>
-            <input type="text" name="imageURL" value="<%= project.imageURL %>">
-        </div>
-        <button type="submit">Edit Project</button>
-    </form>
+    <%- include('partial/nav-company') %>
+    <div class="container mx-auto my-20 ">
+        <h1 class="text-6xl text-center mb-[.4em]">Edit Project</h1>
+        <br>
+        <form action="/company/<%= project.CompanyId %>/project/edit/<%= project.id %>" method="post">
+            <div>
+                <label>Name Project</label>
+                <input type="text" name="nameProject" value="<%= project.nameProject %>" class="form__input">
+            </div>
+            <div>
+                <label>Minimum Load</label>
+                <input type="text" name="minimumLoad" value="<%= project.minimumLoad %>" class="form__input">
+            </div>
+            <div>
+                <label>Detail</label>
+                <input type="text" name="detail" value="<%= project.detail %>" class="form__input">
+            </div>
+            <div>
+                <label>Image URL</label>
+                <input type="text" name="imageURL" value="<%= project.imageURL %>" class="form__input">
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" class="bg-[#64748b] p-2 rounded text-white ">ADD PROJECT</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
