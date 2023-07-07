@@ -10,6 +10,7 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.set('trust proxy', 1)
+app.use(express.static('./public'))
 
 // setup session untuk men store id login
 app.use(session({
