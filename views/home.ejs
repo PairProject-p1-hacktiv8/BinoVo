@@ -4,44 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>homepage</title>
     <%- include('partial/head-bootstrap') %>
         <style>
-            /* a:link,
-            a:visited {
-                background-color: grey;
-                color: white;
-                padding: 14px 25px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
+            .slide {
+                -webkit-transition: all 2.2s cubic-bezier(0.78, 0.29, 0.13, 0.73);
+                transition: all 2.2s cubic-bezier(0.78, 0.29, 0.13, 0.73);
+                animation: slide ease-in;
+
             }
 
-            a:hover,
-            a:active {
-                background-color: lightgray;
-            } */
+            .slide2 {
+                position: relative;
+                animation: slide2 5s infinite;
+            }
+            @keyframes slide2 {
+                form { transform: translateX(-10px);}
+                to { transform: translateX(0px);}
+            }
         </style>
 </head>
 
-<body class="" >
+<body style="background: url('./asset/wave-haikei.svg');">
     <%- include('partial/navbar') %>
+        <div class="container mx-auto flex flex-col  my-10 py-">
+            <h1 class="text-8xl py-5 text-center font-sans antialiased mb-[.4em] slide2 relative">Welcome to BinoVo</h1>
 
-    <div class="container mx-auto flex flex-col  my-10 py-">
-        <h1 class="text-8xl py-5 text-center font-sans antialiased mb-[.4em]">Welcome to BinoVo</h1>
-       
-        <div class="py-20">
-        <div class="mx-18 px-10 text-5xl">
-            <p>Kalian bingung karena <br> terlalu banyak uang ?</p> 
-        </div>
-        <p class="px-10">Bikin uang kamu bekerja lebih keras demimasa depan kamu.</p> 
-        </div>
+            <div class="py-20">
+                <div class="mx-18 px-10 text-5xl">
+                    <p>Kalian bingung karena <br> terlalu banyak uang ?</p>
+                </div>
+                <p class="px-10">Bikin uang kamu bekerja lebih keras demimasa depan kamu.</p>
+            </div>
 
-        <div class="grid absolute max-width" style="bottom: 180px;right: 180px;">
-            <img src="https://e0.pxfuel.com/wallpapers/182/48/desktop-wallpaper-stonks-meme-edited-upscaled-to-px.jpg" alt="" class="rounded-lg" style="width: 400px;">
+            <div class="grid absolute max-width" style="bottom: 180px;right: 180px;">
+                <img src="https://e0.pxfuel.com/wallpapers/182/48/desktop-wallpaper-stonks-meme-edited-upscaled-to-px.jpg"
+                    alt="" class="rounded-lg" style="width: 400px;">
+            </div>
+
         </div>
-        
-    </div>
+        <script>
+
+        </script>
 </body>
 
 </html>

@@ -6,7 +6,8 @@ module.exports = class Controller {
     // HOME PAGE 
 
     static homePage(req, res) {
-        res.render('home')
+        let layaa = 'hello world'
+        res.render('home', { layaa})
     }
 
 
