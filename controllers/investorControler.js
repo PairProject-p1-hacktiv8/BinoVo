@@ -43,7 +43,7 @@ module.exports = class InvestorControler {
      static projectList(req, res) {
         let invId = req.session.InvestorId
         let nameInv = req.session.nameInvestor
-        let { search, sort } = req.query
+        let { search, sort, login } = req.query
         let option = {
             where: {}
         }
@@ -63,7 +63,7 @@ module.exports = class InvestorControler {
         Project.findAll(option)
             .then(project => {
 
-                res.render('projectList', { project, UserId, invId, nameInv, formatCurent })
+                res.render('projectList', { project, UserId, invId, nameInv, formatCurent,login })
             })
             .catch(err => {
                 res.send(err)

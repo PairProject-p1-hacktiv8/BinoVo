@@ -71,7 +71,7 @@ module.exports = class Controller {
                         // console.log(resInvestor.id, ' ini investor login');
                         req.session.InvestorId = resInvestor.id
                         req.session.InvestorName = resInvestor.nameInvestor
-                        res.redirect(`/investor/${resInvestor.id}/projectList`)
+                        res.redirect(`/investor/${resInvestor.id}/projectList?login=succes`)
                     }
                 })
                 .catch(err => {

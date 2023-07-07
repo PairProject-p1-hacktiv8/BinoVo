@@ -1,47 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/scrollreveal"></script>
     <%- include('partial/head-bootstrap') %>
-    <title>Document</title>
+        <title>Document</title>
 </head>
+
 <body>
     <%- include('partial/nav-logged' , { invId, nameInv }) %>
-    <div class="container mx-auto flex flex-col  my-20 py-10">
-        <h1 class="text-7xl text-center mb-[.4em]">Project List</h1>
-        <form action="/investor/<%= UserId %>/projectList" method="get">
-            <input type="text" placeholder="Search...." name="search" class="border border-black text-xl rounded p-1 mb-2"/>
-            <select name="sort" class="border border-black text-xl">
-                <option value="" selected disabled hidden>--Order By--</option>
-                <option value="ASC">Termurah</option>
-                <option value="DESC">Termahal</option>
-            </select>
-            <button class="bg-[#f5f5f4] px-3 py-1 rounded text-black border ">Find</button>
-        </form>
-        <table class="border border-black">
-            <thead class="border border-black">
-                <tr class="my-2">
-                    <th>Image</th>
-                    <th>Name Project</th>
-                    <th>Minimum Load</th>
-                    <th>detail</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% project?.forEach(el =>{ %>
-                    <tr class="border border-black text-lg">
-                        <td class="border border-black"><img src="<%= el.imageURL %>" alt="" width="200"></td>
-                        <td class="pl-5"><p><%=el.nameProject%></p></td>
-                        <td class="pl-5"><p><%= formatCurent(el.minimumLoad)%></p></td>
-                        <td class="pl-5"><p><%=el.detail%></p></td>
-                        <td class="pl-5"><a href="/investor/<%= el.CompanyId  %>/projectList/<%= el.id  %>" class="bg-[#64748b] p-2 rounded text-white inline-block my-2 hover:underline hover:text-blue-200">Details</a></td>
+        <div class="container mx-auto flex flex-col  my-20 py-10">
+            <h1 class="text-7xl text-center mb-[.4em]">Project List</h1>
+            <form action="/investor/<%= UserId %>/projectList" method="get">
+                <input type="text" placeholder="Search...." name="search"
+                    class="border border-black text-xl rounded p-1 mb-2" />
+                <select name="sort" class="border border-black text-xl">
+                    <option value="" selected disabled hidden>--Order By--</option>
+                    <option value="ASC">Termurah</option>
+                    <option value="DESC">Termahal</option>
+                </select>
+                <button class="bg-[#f5f5f4] px-3 py-1 rounded text-black border ">Find</button>
+            </form>
+            <table class="border border-black">
+                <thead class="border border-black">
+                    <tr class="my-2">
+                        <th>Image</th>
+                        <th>Name Project</th>
+                        <th>Minimum Load</th>
+                        <th>detail</th>
+                        <th>Action</th>
                     </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    <% project?.forEach(el=>{ %>
+                        <tr class="border border-black text-lg">
+                            <td class="border border-black"><img src="<%= el.imageURL %>" alt="" width="200"></td>
+                            <td class="pl-5">
+                                <p>
+                                    <%=el.nameProject%>
+                                </p>
+                            </td>
+                            <td class="pl-5">
+                                <p>
+                                    <%= formatCurent(el.minimumLoad)%>
+                                </p>
+                            </td>
+                            <td class="pl-5">
+                                <p>
+                                    <%=el.detail%>
+                                </p>
+                            </td>
+                            <td class="pl-5"><a href="/investor/<%= el.CompanyId  %>/projectList/<%= el.id  %>"
+                                    class="bg-[#64748b] p-2 rounded text-white inline-block my-2 hover:underline hover:text-blue-200">Details</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <% if(login) { %>
+            <script>
+                swal({
+                    title: "Login succes",
+                    icon: "success",
+                    button: "Aww",
+                });
+            </script>
+            <% } %>
 </body>
+
 </html>
