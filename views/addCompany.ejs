@@ -5,21 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include('partial/head-bootstrap') %>
     <title>Document</title>
+    <style>
+        .form__input {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            font-size: 1.2rem;
+            margin: 0 auto;
+            border-radius: 0.2rem;
+            background-color: rgb(255, 255, 255);
+            border: black;
+            width: 30%;
+            display: block;
+            border-bottom: 0.3rem solid transparent;
+            transition: all 0.3s;
+        }
+        </style>
 </head>
-<body>
+<body class="text-center text-2xl " style="background-color: lightgray;">
     <%- include('partial/nav-company') %>
-    <h1>ADD COMPANY</h1>
+    <div class="container mx-auto my-20 ">
+    <h1 class="text-6xl text-center mb-[.4em]">ADD COMPANY</h1>
     <br>
     <form action="/company/add" method="post">
         <div>
             <label>Name Company</label>
-            <input type="text" name="nameCompany">
+            <input type="text" name="nameCompany" class="form__input" >
         </div>
         <div>
             <label>Addres</label>
-            <input type="text" name="address">
+            <input type="text" name="address" class="form__input" >
         </div>
-        <button type="submit">ADD Company</button>
+        <div class="flex justify-center" >
+            <button type="submit" class="bg-[#64748b] p-2 rounded text-white ">ADD Company</button>
+        </div>
     </form>
+</div>
 </body>
 </html>
